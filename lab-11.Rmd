@@ -1,27 +1,54 @@
 ---
 title: "Lab 11 - Smoking during pregnancy"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Ryan Wheat"
+date: "4/5/2023"
 output: github_document
 ---
 
 ### Load packages and data
 
-```{r load-packages, message=FALSE}
+```{r load-packages-and-data, message=FALSE}
 library(tidyverse) 
 library(tidymodels)
 library(openintro)
+data(ncbirths)
 ```
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+Each case is one baby in North Carolina. Thus, each variable describes something that applies to that baby: the age of their mother/father, their weight, etc. There are a total of 1,000 babies in this dataframe.
+
+I created histograms for each continuous variable in order to see if there are any outliers that may muck up my analyses. There are a couple of outliers in each group, but I feel like I don't have any good reason to exclude them, so I should be conservative here and keep them in for my analyses.
+
+```{r summary-variables}
+
+summary(ncbirths)
+
+#checking for outliers in numerical variables
+
+ggplot(data = ncbirths, mapping = aes(x = fage)) + geom_histogram()
+ggplot(data = ncbirths, mapping = aes(x = mage)) + geom_histogram()
+ggplot(data = ncbirths, mapping = aes(x = weeks)) + geom_histogram()
+ggplot(data = ncbirths, mapping = aes(x = visits)) + geom_histogram()
+ggplot(data = ncbirths, mapping = aes(x = gained)) + geom_histogram()
+ggplot(data = ncbirths, mapping = aes(x = weight)) + geom_histogram()
+```
+
 
 ### Exercise 2
 
-...
+The average white baby weighs 7.25 pounds.
+
+```{r create-new-dataframe}
+
+#filter for white moms
+
+ncbirths_white <- ncbirths %>%
+  filter(whitemom == "white")
+
+summary(ncbirths_white)
+
+```
+
 
 Add exercise headings as needed.
